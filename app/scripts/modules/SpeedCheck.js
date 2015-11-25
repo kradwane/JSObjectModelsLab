@@ -1,3 +1,9 @@
+
+
+
+
+
+
 (function(global) {
   'use strict';
   global.SpeedCheck = {};
@@ -6,12 +12,29 @@
     this.message = message;
   }
 
+
+
+
+
+
+
+
+
+
+
   function createSpeedCheck() {
+
+
+
       return Object.create(Object.prototype, {
+
+
+
           speed: {
               get: function() {
                   return this._speed || 0;
               },
+
               set: function(speed) {
                   if (speed < 0) {
                       throw {
@@ -23,6 +46,10 @@
                   this._speed = speed;
               }
           },
+
+
+
+
           licencePlate: {
               get: function() {
                   return this._licencePlate || '???';
@@ -37,26 +64,69 @@
                   this._licencePlate = licencePlate;
               }
           },
+
+
+
+
           toString: {
+            get: function() {
+
+              if(this._infraction===true)
+             
+                return      "Véhicule " + this.licencePlate + " roule à = "+ this.speed + " Infraction!" ;
+             
+              else
+             
+                return      "Véhicule " + this.licencePlate + " roule à = "+ this.speed + " Ca va circulez...";
+
+
+            //return     "methode toString";
               /* TODO: Implement this function */
+            }
           },
+
+
+
           infraction: {
-              get: function() {
-                  return this._infraction || false;
+              get: function()
+              {
+                // alert("licence   ");
+                return this._infraction || false;
+
               }
           },
+
+
+
           validatePlate: {
-              value: function(plate) {
+              value: function(plate)
+              {
                 throw new SpeedCheckError('The "createSpeedCheck" should not be instantiated. It should be specialized.');
               }
           },
+
+
+
           validateInfraction: {
               value: function(speed) {
                 throw new SpeedCheckError('The "createSpeedCheck" should not be instantiated. It should be specialized.');
-              },
+              }
           }
       });
+
+
   }
+
+
+
+
+
+
+
+
+
+
+
   function createSpeedCheckFR() {
     return Object.create(createSpeedCheck(), {
       validatePlate: {
@@ -67,10 +137,16 @@
       validateInfraction: {
           value: function(speed) {
               this._infraction = (speed > 130) ? true : false;
-          },
+          }
       }
     });
   }
+
+
+
+
+
+
   function createSpeedCheckBE() {
     return Object.create(createSpeedCheck(), {
       validatePlate: {
@@ -81,10 +157,14 @@
       validateInfraction: {
           value: function(speed) {
               this._infraction = (speed > 120) ? true : false;
-          },
+          }
       }
     });
   }
+
+
+
+
 
   // Expose public API
   global.createSpeedCheck = createSpeedCheck;
